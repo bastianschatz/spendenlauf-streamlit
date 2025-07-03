@@ -6,8 +6,10 @@ import os
 
 # Globale Konstante für Speicherort auf Render (Persistent Disk)
 DATA_PATH = "/data"
-os.makedirs(DATA_PATH, exist_ok=True)
-
+if not os.path.exists(DATA_PATH):
+    st.error("Datenverzeichnis '/data' nicht gefunden. Ist die Persistent Disk korrekt eingerichtet?")
+    st.stop()
+    
 # Authentifizierung
 def load_users():
     with open(f"{DATA_PATH}/users.json", "r") as f:
